@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Love Forever 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef, #fcb69f);
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Input Screen */
+    #inputScreen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    input, button {
+      padding: 10px 20px;
+      margin: 8px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+    button {
+      background: #ff4f81;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff2e63;
+    }
+
+    /* Main Love Screen */
+    #loveScreen {
+      display: none;
+      height: 100vh;
+      position: relative;
+    }
+
+    #loveSentence {
+      position: absolute;
+      top: 30%;
+      width: 100%;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      animation: fade 2s infinite alternate;
+    }
+    @keyframes fade {
+      from {opacity: 0.2;}
+      to {opacity: 1;}
+    }
+
+    #bottomText {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff5f7;
+    }
+
+    /* Bouncing Names */
+    .bouncer {
+      position: absolute;
+      font-size: 26px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #ff0066;
+    }
+
+    /* Heart Spam Button */
+    #heartButton {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff4f81;
+      padding: 12px 25px;
+      border-radius: 20px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Hearts */
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 24px;
+      animation: fall 4s linear forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Love Percentage */
+    #lovePercent {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(255, 105, 180, 0.3);
+      padding: 8px 16px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Input Screen -->
+  <div id="inputScreen">
+    <h1>Enter Your Love Story 💕</h1>
+    <input id="name1" placeholder="Your Name">
+    <input id="bd1" type="date">
+    <input id="name2" placeholder="Partner's Name">
+    <input id="bd2" type="date">
+    <button onclick="startLove()">Start Love Story</button>
+  </div>
+
+  <!-- Main Love Screen -->
+  <div id="loveScreen">
+    <div id="loveSentence"></div>
+    <div id="bottomText">I wanna spend my entire life with you ❤️</div>
+    <div id="lovePercent">Love: 100%</div>
+    <button id="heartButton" onclick="spawnHearts()">💖 Spam Hearts</button>
+  </div>
+
+  <script>
+    const sentences = [
+      "You are my sunshine on a cloudy day ☀️",
+      "Every heartbeat says your name 💓",
+      "Together, forever, no matter what 💕",
+      "My soul found home in you 🏡",
+      "You complete me in every way 🌸",
+      "I fall for you every single day 🌹",
+      "My love for you grows endlessly 💖",
+      "Your smile is my favorite view 🌈",
+      "You and I are infinite ✨",
+      "I can’t imagine life without you ❤️",
+      // 👉 add up to 100+ similar lines
+    ];
+
+    let sentenceIndex = 0;
+    function slideshow() {
+      document.getElementById("loveSentence").innerText = sentences[sentenceIndex];
+      sentenceIndex = (sentenceIndex + 1) % sentences.length;
+    }
+
+    function getZodiac(dateStr) {
+      const date = new Date(dateStr);
+      const d = date.getUTCDate();
+      const m = date.getUTCMonth() + 1;
+      if((m==3&&d>=21)||(m==4&&d<=19)) return "♈ Aries";
+      if((m==4&&d>=20)||(m==5&&d<=20)) return "♉ Taurus";
+      if((m==5&&d>=21)||(m==6&&d<=20)) return "♊ Gemini";
+      if((m==6&&d>=21)||(m==7&&d<=22)) return "♋ Cancer";
+      if((m==7&&d>=23)||(m==8&&d<=22)) return "♌ Leo";
+      if((m==8&&d>=23)||(m==9&&d<=22)) return "♍ Virgo";
+      if((m==9&&d>=23)||(m==10&&d<=22)) return "♎ Libra";
+      if((m==10&&d>=23)||(m==11&&d<=21)) return "♏ Scorpio";
+      if((m==11&&d>=22)||(m==12&&d<=21)) return "♐ Sagittarius";
+      if((m==12&&d>=22)||(m==1&&d<=19)) return "♑ Capricorn";
+      if((m==1&&d>=20)||(m==2&&d<=18)) return "♒ Aquarius";
+      if((m==2&&d>=19)||(m==3&&d<=20)) return "♓ Pisces";
+    }
+
+    function startLove() {
+      document.getElementById("inputScreen").style.display = "none";
+      document.getElementById("loveScreen").style.display = "block";
+      setInterval(slideshow, 3000);
+
+      const n1 = document.getElementById("name1").value;
+      const n2 = document.getElementById("name2").value;
+      const z1 = getZodiac(document.getElementById("bd1").value);
+      const z2 = getZodiac(document.getElementById("bd2").value);
+
+      createBouncer(n1 + " " + z1);
+      createBouncer(n2 + " " + z2);
+    }
+
+    function createBouncer(text) {
+      const div = document.createElement("div");
+      div.className = "bouncer";
+      div.innerText = text + " 💕";
+      document.getElementById("loveScreen").appendChild(div);
+
+      let x = Math.random() * window.innerWidth * 0.8;
+      let y = Math.random() * window.innerHeight * 0.6;
+      let dx = 2 + Math.random()*2;
+      let dy = 2 + Math.random()*2;
+
+      function animate() {
+        x += dx;
+        y += dy;
+        if (x <= 0 || x >= window.innerWidth-150) dx *= -1;
+        if (y <= 0 || y >= window.innerHeight-80) dy *= -1;
+        div.style.left = x + "px";
+        div.style.top = y + "px";
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    function spawnHearts() {
+      for (let i=0; i<10; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "💖";
+        h.style.left = Math.random()*window.innerWidth + "px";
+        h.style.top = "0px";
+        h.style.fontSize = (20+Math.random()*30)+"px";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),4000);
+      }
+    }
+  </script>
+</body>
+</html>
